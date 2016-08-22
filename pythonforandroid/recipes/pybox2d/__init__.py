@@ -12,7 +12,7 @@ from multiprocessing import cpu_count
 class Pybox2dRecipe(CppCompiledComponentsPythonRecipe):
 
     name = 'pybox2d'
-    version = 'v44'
+    version = 'v46'
     url = 'https://github.com/DerThorsten/liquidfun/archive/{version}.zip'
     depends = ['python2']
 
