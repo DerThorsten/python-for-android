@@ -12,7 +12,7 @@ from multiprocessing import cpu_count
 class Pybox2dRecipe(CppCompiledComponentsPythonRecipe):
 
     name = 'pybox2d'
-    version = 'v46'
+    version = 'v56'
     url = 'https://github.com/DerThorsten/liquidfun/archive/{version}.zip'
     depends = ['python2']
 
@@ -44,6 +44,7 @@ class Pybox2dRecipe(CppCompiledComponentsPythonRecipe):
                     '-DBOX2D_BUILD_EXAMPLES=0',
                     '-DBOX2D_BUILD_UNITTESTS=0',
                     '-DBOX2D_CODE_COVERAGE=0',
+                    '-DPYTHON_MODULE_EXTENSION=.so',
                     #'-DPYBIND11_PYTHON_VERSION=2.7',
                     '-DCMAKE_INSTALL_PREFIX=./install',
                     '-DPYTHON_EXECUTABLE={}/bin/python2.7'.format(instDir),
@@ -53,13 +54,18 @@ class Pybox2dRecipe(CppCompiledComponentsPythonRecipe):
                     _env=env)
             shprint(sh.make, _env=env)
 
-            self.install_libs(arch, join('Box2D/Release', 'libliquidfun.so'))
 
+            #self.install_libs(arch, join('Box2D/Release', 'libliquidfun.so.2.3.0'))
+            #self.install_libs(arch, join('Box2D/Release', 'libliquidfun.so'))
+            self.install_libs(arch, join('python/pybox2d', '_pybox2d.so'))
 
+            
             sh.cp('-R','python/pybox2d',
                 self.ctx.get_site_packages_dir()
             )
-
+            #sh.cp('Box2D/Release/libliquidfun.so.2.3.0',
+            #    join(self.ctx.get_site_packages_dir(),'pybox2d')
+            #)
 
 
 recipe = Pybox2dRecipe()
